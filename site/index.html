@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>breakeven-roas · Unit Economics Intelligence for TikTok Shop Vietnam</title>
+  <meta name="description" content="Break-even ROAS, max CPA and contribution margin (CM1, CM2, CM3) for a TikTok Shop Vietnam order, with commission by category from the open dataset. Free, runs in your browser. English and Vietnamese.">
+  <meta property="og:title" content="breakeven-roas · Unit Economics Intelligence for TikTok Shop Vietnam">
+  <meta property="og:description" content="How much each order can pay for ads, the ROAS you have to beat, and what is left at your plan.">
+  <meta property="og:image" content="https://dannybosie.github.io/breakeven-roas/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%231a7f37'/%3E%3Cpath d='M3 12h10M4 12V8M8 12V5M12 12V3' stroke='white' stroke-width='1.8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .layout { display: grid; grid-template-columns: minmax(300px, 400px) 1fr; gap: 24px; align-items: start; }
+    @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .layout > section { order: -1; } }
+    form.panel { display: grid; gap: 18px; }
+    fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 12px; }
+    legend { font: 700 13px/1 var(--font); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; padding: 0; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; }
+    .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .seg button { font: 600 13px/1 var(--font); padding: 9px 14px; border: 0; background: var(--bg); color: var(--ink); cursor: pointer; }
+    .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+    .cat-results { list-style: none; margin: 6px 0 0; padding: 0; max-height: 220px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
+    .cat-results:empty { display: none; }
+    .cat-results li button { display: grid; grid-template-columns: 1fr auto; gap: 8px; width: 100%; text-align: left; padding: 8px 10px; border: 0; border-bottom: 1px solid var(--border); background: none; color: var(--ink); font: 13px/1.35 var(--font); cursor: pointer; }
+    .cat-results li button:hover { background: var(--panel); }
+    .cat-results .path { color: var(--muted); font-size: 12px; }
+    .cat-chosen { font-size: 13px; margin-top: 6px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 1000px) { .cards { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+    .card .label { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .card .value { font: 800 34px/1.1 var(--font); letter-spacing: -0.02em; margin: 6px 0 4px; }
+    .card .sub { font-size: 13px; color: var(--muted); }
+    .wf { display: grid; gap: 8px; }
+    .wf-row { display: grid; grid-template-columns: 170px 1fr 110px; gap: 10px; align-items: center; font-size: 13px; }
+    @media (max-width: 560px) { .wf-row { grid-template-columns: 110px 1fr 90px; } }
+    .wf-track { position: relative; height: 18px; }
+    .wf-bar { position: absolute; top: 0; height: 18px; border-radius: 4px; }
+    .wf-row .amt { text-align: right; font-family: var(--mono); }
+    .wf-row.total { font-weight: 700; }
+    .pos { background: var(--accent); } .neg { background: var(--err); opacity: 0.8; } .mid { background: var(--info); }
+    tr.be td { border-top: 2px solid var(--err); }
+    td.num { font-family: var(--mono); text-align: right; } th.num { text-align: right; }
+    .cta { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .langs { float: right; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="langs seg" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="vi">VI</button></div>
+      <p class="eyebrow"><a href="https://github.com/dannybosie">dannybosie</a> / tools / <a href="https://github.com/dannybosie/breakeven-roas">breakeven-roas</a></p>
+      <h1>breakeven-roas</h1>
+      <p class="tagline" data-i="tagline"></p>
+      <p class="lede" data-i="lede"></p>
+    </header>
+
+    <main class="layout">
+      <form class="panel" id="form" autocomplete="off">
+        <fieldset>
+          <legend data-i="product"></legend>
+          <div><label for="price" data-i="price"></label><input id="price" inputmode="numeric"></div>
+          <div><label for="landedCost" data-i="landed"></label><input id="landedCost" inputmode="numeric"><div class="hint" data-i="landedHint"></div></div>
+        </fieldset>
+        <fieldset>
+          <legend data-i="category"></legend>
+          <div>
+            <input id="cat-search" type="search" data-i-ph="searchPh">
+            <ul class="cat-results" id="cat-results"></ul>
+            <div class="cat-chosen" id="cat-chosen"></div>
+          </div>
+          <div class="two">
+            <div><label data-i="tier"></label><div class="seg" id="tier"><button type="button" data-tier="standard" data-i="standard"></button><button type="button" data-tier="mall" data-i="mall"></button></div></div>
+            <div><label for="commissionPct" data-i="commission"></label><input id="commissionPct" inputmode="decimal"></div>
+          </div>
+          <div class="hint" id="commission-hint"></div>
+        </fieldset>
+        <fieldset>
+          <legend data-i="fees"></legend>
+          <div class="two">
+            <div><label for="paymentFeePct" data-i="payment"></label><input id="paymentFeePct" inputmode="decimal"></div>
+            <div><label for="taxWithheldPct" data-i="tax"></label><input id="taxWithheldPct" inputmode="decimal"></div>
+          </div>
+          <div class="hint" data-i="taxHint"></div>
+          <div class="two">
+            <div><label for="voucherXtraPct" data-i="vxp"></label><input id="voucherXtraPct" inputmode="decimal"></div>
+            <div><label for="orderFee" data-i="orderFee"></label><input id="orderFee" inputmode="numeric"></div>
+          </div>
+          <div class="hint" data-i="vxpHint"></div>
+          <div><label for="shippingSubsidy" data-i="shipping"></label><input id="shippingSubsidy" inputmode="numeric"></div>
+        </fieldset>
+        <fieldset>
+          <legend data-i="risk"></legend>
+          <div class="two">
+            <div><label for="returnRatePct" data-i="returns"></label><input id="returnRatePct" inputmode="decimal"></div>
+            <div><label for="affiliatePct" data-i="affiliate"></label><input id="affiliatePct" inputmode="decimal"></div>
+          </div>
+          <div><label for="otherPct" data-i="other"></label><input id="otherPct" inputmode="decimal"><div class="hint" data-i="otherHint"></div></div>
+        </fieldset>
+        <fieldset>
+          <legend data-i="plan"></legend>
+          <div class="two">
+            <div><label for="targetRoas" data-i="targetRoas"></label><input id="targetRoas" inputmode="decimal"></div>
+            <div><label for="targetMarginPct" data-i="targetMargin"></label><input id="targetMarginPct" inputmode="decimal"></div>
+          </div>
+        </fieldset>
+        <button class="btn" type="button" id="share" data-i="share"></button>
+      </form>
+
+      <section>
+        <div class="cards" id="cards"></div>
+        <h2 data-i="waterfall"></h2>
+        <div class="panel wf" id="waterfall"></div>
+        <p id="need-roas" style="margin: 14px 0 0;"></p>
+        <h2 data-i="table"></h2>
+        <div class="table-scroll"><table id="sens"></table></div>
+        <h2 data-i="aff"></h2>
+        <div class="panel" id="aff" style="font-size: 14px;"></div>
+        <div class="panel cta" style="margin-top: 24px;">
+          <div><b data-i="ctaTitle"></b><br><span class="muted" style="font-size: 14px;" data-i="ctaBody"></span></div>
+          <a class="btn primary" id="cta" href="https://ordinex.cc/tools/tinh-gia-ban-tiktok-shopee?utm_source=github&amp;utm_medium=referral&amp;utm_campaign=breakeven-roas" data-i="ctaLink"></a>
+        </div>
+        <p class="muted" style="font-size: 13px;" data-i="fine"></p>
+      </section>
+    </main>
+
+    <footer class="bottom">
+      Built by <a href="https://github.com/dannybosie">Thinh Nguyen (Danny)</a>, a growth marketer who ships tools. MIT licensed. Commission data: <a href="https://github.com/dannybosie/tiktok-shop-vn-commission-rates">tiktok-shop-vn-commission-rates</a>, CC BY 4.0.
+      <ul>
+        <li><a href="https://dannybosie.github.io/slop-lint/">slop-lint</a></li>
+        <li><a href="https://dannybosie.github.io/utm-governor/">utm-governor</a></li>
+        <li><a href="https://dannybosie.github.io/vn-peak-trading-calendar/">vn-peak-trading-calendar</a></li>
+      </ul>
+    </footer>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

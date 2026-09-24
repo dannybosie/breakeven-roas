@@ -1,0 +1,39 @@
+{
+  "name": "breakeven-roas",
+  "version": "1.0.0",
+  "description": "Unit Economics Intelligence for TikTok Shop Vietnam. Break-even ROAS, max CPA and CM1 to CM3 for one order, with commission by category.",
+  "type": "module",
+  "bin": {
+    "breakeven-roas": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "roas",
+    "unit-economics",
+    "tiktok-shop",
+    "vietnam",
+    "ecommerce",
+    "contribution-margin",
+    "cpa",
+    "performance-marketing"
+  ],
+  "author": "Thinh Nguyen (Danny)",
+  "license": "MIT",
+  "repository": "github:dannybosie/breakeven-roas",
+  "homepage": "https://dannybosie.github.io/breakeven-roas/",
+  "devDependencies": {
+    "@types/node": "^24.13.6",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  }
+}
