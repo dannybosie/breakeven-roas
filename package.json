@@ -1,7 +1,7 @@
 {
   "name": "breakeven-roas",
   "version": "1.0.0",
-  "description": "Unit Economics Intelligence for TikTok Shop Vietnam. Break-even ROAS, max CPA and CM1 to CM3 for one order, with commission by category.",
+  "description": "Break-even ROAS, max CPA and CM1 to CM3 for one TikTok Shop Vietnam order, with commission by category.",
   "type": "module",
   "bin": {
     "breakeven-roas": "dist/cli.js"

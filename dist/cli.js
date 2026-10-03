@@ -116,7 +116,7 @@ var TIKTOK_VN_DEFAULTS = {
 // src/cli.ts
 var VERSION = "1.0.0";
 var HELP = `breakeven-roas ${VERSION}
-Unit Economics Intelligence for TikTok Shop Vietnam: break-even ROAS, max CPA and CM1 to CM3 for one order.
+Break-even ROAS, max CPA and CM1 to CM3 for one TikTok Shop Vietnam order.
 
 Usage
   breakeven-roas --price 199000 --cost 85000 [--category "g\u1EA5u b\xF4ng"] [--mall] [options]

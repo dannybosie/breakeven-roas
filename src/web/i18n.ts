@@ -2,11 +2,11 @@ export type Lang = "en" | "vi";
 
 export const STRINGS = {
   en: {
-    tagline: "Unit Economics Intelligence for TikTok Shop Vietnam",
+    tagline: "Break-even ROAS calculator for TikTok Shop Vietnam",
     lede: "Put in a price and a landed cost. See how much each order can pay for ads, the ROAS you have to beat, and what is left at the ROAS you plan for. Commission comes from the category, fees from TikTok Shop's current schedule.",
     product: "Product", price: "Selling price per order (VND)", landed: "Landed cost per order (VND)", landedHint: "Product, freight, import tax, packaging.",
     category: "Category", searchPh: "Search a category, e.g. gấu bông, son môi, tai nghe", tier: "Shop type", standard: "Standard", mall: "Mall",
-    commission: "Commission (%)", commissionFrom: "From the {version} schedule. Edit to override.",
+    commission: "Commission (%)", commissionFrom: "From the schedule effective {date}. Edit to override.",
     fees: "Platform fees", payment: "Payment fee (%)", tax: "Tax withheld (%)", taxHint: "1.5% for household businesses (1% VAT + 0.5% PIT). 0% for companies.",
     vxp: "Voucher Xtra (%)", vxpHint: "4% if enrolled, capped at 50,000 VND per order.", orderFee: "Order fee (VND)", shipping: "Shipping you pay (VND per order)",
     risk: "Returns and channels", returns: "Returns and refunds (% of revenue)", other: "Other variable cost (%)", otherHint: "Warehouse, staff, anything that scales with orders.", affiliate: "Affiliate commission (%)",
@@ -24,11 +24,11 @@ export const STRINGS = {
     noCategory: "None chosen, so the default rate applies:",
   },
   vi: {
-    tagline: "Tính kinh tế đơn vị cho TikTok Shop Việt Nam",
+    tagline: "Công cụ tính ROAS hoà vốn cho TikTok Shop Việt Nam",
     lede: "Nhập giá bán và giá vốn. Xem mỗi đơn chịu được bao nhiêu tiền quảng cáo, ROAS tối thiểu phải vượt, và còn lại bao nhiêu ở ROAS bạn dự kiến. Hoa hồng lấy theo ngành hàng, phí lấy theo biểu phí hiện hành của TikTok Shop.",
     product: "Sản phẩm", price: "Giá bán mỗi đơn (VND)", landed: "Giá vốn về kho mỗi đơn (VND)", landedHint: "Tiền hàng, vận chuyển, thuế nhập khẩu, đóng gói.",
     category: "Ngành hàng", searchPh: "Tìm ngành hàng, ví dụ: gấu bông, son môi, tai nghe", tier: "Loại shop", standard: "Thường", mall: "Mall",
-    commission: "Hoa hồng (%)", commissionFrom: "Theo biểu phí {version}. Sửa để ghi đè.",
+    commission: "Hoa hồng (%)", commissionFrom: "Theo biểu phí áp dụng từ {date}. Sửa để ghi đè.",
     fees: "Phí sàn", payment: "Phí giao dịch (%)", tax: "Thuế khấu trừ (%)", taxHint: "1,5% với hộ kinh doanh (1% GTGT + 0,5% TNCN). 0% với doanh nghiệp.",
     vxp: "Voucher Xtra (%)", vxpHint: "4% nếu tham gia, tối đa 50.000 VND mỗi đơn.", orderFee: "Phí xử lý đơn (VND)", shipping: "Phí ship shop chịu (VND mỗi đơn)",
     risk: "Hoàn hàng và kênh", returns: "Hoàn hàng, hoàn tiền (% doanh thu)", other: "Chi phí biến đổi khác (%)", otherHint: "Kho, nhân sự, mọi thứ tăng theo số đơn.", affiliate: "Hoa hồng affiliate (%)",

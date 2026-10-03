@@ -1,6 +1,6 @@
 # breakeven-roas
 
-**Unit Economics Intelligence for TikTok Shop Vietnam.** Put in a price and a landed cost. See how much each order can pay for ads, the ROAS you have to beat, and what is left at the ROAS you plan for, with commission looked up by category and fees from TikTok Shop's current schedule.
+**A break-even ROAS calculator for TikTok Shop Vietnam orders.** Put in a price and a landed cost. See how much each order can pay for ads, the ROAS you have to beat, and what is left at the ROAS you plan for, with commission looked up by category and fees from TikTok Shop's current schedule.
 
 **[Open the calculator](https://dannybosie.github.io/breakeven-roas/)**, in English or Vietnamese. It runs in your browser, and a scenario can be shared as a link.
 

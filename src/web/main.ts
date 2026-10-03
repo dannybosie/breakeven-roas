@@ -42,6 +42,12 @@ const L = (key: Key, vars?: Record<string, string>) => t(state.lang, key, vars);
 const locale = () => (state.lang === "vi" ? "vi-VN" : "en-US");
 const vnd = (n: number) => (Number.isFinite(n) ? `${Math.round(n).toLocaleString(locale())} ₫` : "n/a");
 const pctf = (n: number, d = 1) => (Number.isFinite(n) ? `${n.toLocaleString(locale(), { maximumFractionDigits: d, minimumFractionDigits: d })}%` : "n/a");
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+/** "2026-07-03" as "3 July 2026" in English and "03/07/2026" in Vietnamese. */
+const dateLabel = (iso: string) => {
+  const [y, m, d] = iso.split("-");
+  return state.lang === "vi" ? `${d}/${m}/${y}` : `${Number(d)} ${MONTHS[Number(m) - 1]} ${y}`;
+};
 const roasf = (n: number) => (Number.isFinite(n) ? `${n.toLocaleString(locale(), { maximumFractionDigits: 2, minimumFractionDigits: 2 })}x` : "∞");
 
 function applyLanguage(): void {
@@ -70,7 +76,8 @@ function renderCategory(): void {
   } else {
     chosen.innerHTML = `<span class="muted">${esc(L("noCategory"))} ${pctf(SCHEDULE.defaults[state.tier])}</span>`;
   }
-  $("commission-hint").textContent = L("commissionFrom", { version: SCHEDULE.version });
+  const effective = state.tier === "mall" ? SCHEDULE.mallEffectiveFrom : SCHEDULE.standardEffectiveFrom;
+  $("commission-hint").textContent = L("commissionFrom", { date: dateLabel(effective) });
 }
 
 function tierTag(tier: string): string {
